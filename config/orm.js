@@ -6,6 +6,8 @@ insertOne();
 updateOne();
 */
 
+// need to review what exactly the correct functions will be that are needed
+
 const connection = require("../config/connection.js")
 
 function printQuestionMarks(num) {
