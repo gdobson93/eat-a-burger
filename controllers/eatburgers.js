@@ -1,38 +1,38 @@
-var express = require("express");
+const express = require("express");
 
-var router = express.Router();
+const router = express.Router();
 
 // Import the model (cat.js) to use its database functions.
 var burger = require("../models/burger.js");
 
 router.get("/", function(req, res) {
   burger.all(function(data) {
-    //look at next line
-    var hbsObject = {
-      cats: data
+    
+    let hbsObject = {
+      burgers: data
     };
     console.log(hbsObject);
     res.render("index", hbsObject);
   });
 });
-// look at route on next line
-router.post("/api/cats", function(req, res) {
+
+router.post("/api/burgers", function(req, res) {
   burger.create([
-    "name", "sleepy"
+    "burger_name", "devoured"
   ], [
     req.body.name, req.body.sleepy
   ], function(result) {
     res.json({ id: result.insertId });
   });
 });
-// look at next line
-router.put("/api/cats/:id", function(req, res) {
+
+router.put("/api/burgers/:id", function(req, res) {
   var condition = "id = " + req.params.id;
 
   console.log("condition", condition);
 
   burger.update({
-    sleepy: req.body.sleepy
+    devoured: req.body.devoured
   }, condition, function(result) {
     if (result.changedRows == 0) {
       
@@ -42,11 +42,11 @@ router.put("/api/cats/:id", function(req, res) {
     }
   });
 });
-// look at 47 route
-router.delete("/api/cats/:id", function(req, res) {
-  var condition = "id = " + req.params.id;
 
-  cat.delete(condition, function(result) {
+router.delete("/api/burgers/:id", function(req, res) {
+  let condition = "id = " + req.params.id;
+
+  burger.delete(condition, function(result) {
     if (result.affectedRows == 0) {
     
       return res.status(404).end();
